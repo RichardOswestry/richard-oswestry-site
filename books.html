@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books | Richard Oswestry</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            background: #111111;
+            color: #eeeeee;
+        }
+
+        header {
+            text-align: center;
+            padding: 70px 20px 50px;
+            border-bottom: 1px solid #444444;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 48px;
+            font-weight: normal;
+            letter-spacing: 4px;
+        }
+
+        header p {
+            margin-top: 15px;
+            font-size: 18px;
+            letter-spacing: 2px;
+            color: #c9a227;
+        }
+
+        nav {
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px solid #333333;
+        }
+
+        nav a {
+            color: #eeeeee;
+            text-decoration: none;
+            margin: 0 18px;
+            font-size: 15px;
+            letter-spacing: 1px;
+        }
+
+        nav a:hover {
+            color: #c9a227;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: auto;
+            padding: 70px 25px;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .page-title h2 {
+            font-size: 36px;
+            font-weight: normal;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .page-title p {
+            color: #aaaaaa;
+            font-size: 18px;
+        }
+
+        .book {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .cover {
+            flex: 0 0 340px;
+            text-align: center;
+        }
+
+        .cover img {
+            width: 100%;
+            max-width: 340px;
+            height: auto;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.6);
+        }
+
+        .details {
+            flex: 1;
+        }
+
+        .details h3 {
+            color: #c9a227;
+            font-size: 34px;
+            font-weight: normal;
+            letter-spacing: 2px;
+            margin: 0 0 8px;
+        }
+
+        .details h4 {
+            font-size: 18px;
+            font-weight: normal;
+            letter-spacing: 2px;
+            margin: 0 0 30px;
+            color: #aaaaaa;
+        }
+
+        .statement {
+            font-size: 25px;
+            line-height: 1.5;
+            color: #c9a227;
+            margin-bottom: 30px;
+        }
+
+        .details p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #cccccc;
+        }
+
+        .rule {
+            width: 80px;
+            height: 1px;
+            background: #c9a227;
+            margin: 30px 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid #333333;
+            color: #777777;
+            font-size: 14px;
+        }
+
+        @media (max-width: 750px) {
+            .book {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .cover {
+                flex-basis: auto;
+            }
+
+            .details {
+                text-align: center;
+            }
+
+            .rule {
+                margin: 30px auto;
+            }
+
+            header h1 {
+                font-size: 38px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>RICHARD OSWESTRY</h1>
+    <p>ENGINEER. NOVELIST.</p>
+</header>
+
+<nav>
+    <a href="index.html">HOME</a>
+    <a href="books.html">BOOKS</a>
+    <a href="about.html">ABOUT</a>
+    <a href="writing.html">WRITING</a>
+</nav>
+
+<main>
+
+    <div class="page-title">
+        <h2>BOOKS</h2>
+        <p>Stories of consequence, choice, memory and human intent.</p>
+    </div>
+
+    <section class="book">
+
+        <div class="cover">
+            <img src="rule-one-book-one-cover.png"
+                 alt="Rule One - Book One by Richard Oswestry">
+        </div>
+
+        <div class="details">
+
+            <h3>RULE ONE</h3>
+
+            <h4>BOOK ONE</h4>
+
+            <div class="statement">
+                AI is capability.<br>
+                Human is intent.
+            </div>
+
+            <div class="rule"></div>
+
+            <p>
+                Artificial intelligence is capable of extraordinary things.
+                But capability alone does not determine what happens next.
+            </p>
+
+            <p>
+                Rule One explores the relationship between technology,
+                human intent and the consequences that follow when the
+                two meet.
+            </p>
+
+        </div>
+
+    </section>
+
+</main>
+
+<footer>
+    &copy; 2026 Richard Oswestry
+</footer>
+
+</body>
+</html>
