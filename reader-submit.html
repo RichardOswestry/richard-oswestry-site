@@ -222,7 +222,7 @@ when time allows, chooses those he would like to answer.
 <label for="question">YOUR QUESTION</label>
 <textarea id="question" name="question" required></textarea>
 
-<button type="button">
+<button type="submit">
 SUBMIT QUESTION
 </button>
 
@@ -243,6 +243,57 @@ Not every question will receive an answer.
 <footer>
 © 2026 Richard Oswestry
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<script>
+const SUPABASE_URL = "https://frskyxuttbfczdlcpblc.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_frskyxuttbfczdlcpblc"; 
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_5SadXQXJSCKV0gn6jkosZw_AHrj3fDQ";
+const supabase = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
+
+const form = document.querySelector("form");
+const button = form.querySelector("button");
+
+form.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    button.disabled = true;
+    button.textContent = "SENDING...";
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const book = document.getElementById("book").value;
+    const question = document.getElementById("question").value.trim();
+
+    const { error } = await supabase
+        .from("reader_questions")
+        .insert([
+            {
+                name: name,
+                email: email,
+                book: book,
+                question: question,
+                status: "pending"
+            }
+        ]);
+
+    if (error) {
+        console.error(error);
+        alert("Sorry, your question could not be submitted. Please try again.");
+        button.disabled = false;
+        button.textContent = "SUBMIT QUESTION";
+        return;
+    }
+
+    alert("Thank you. Your question has been received and will be considered for the Reader's Room.");
+
+    form.reset();
+    button.disabled = false;
+    button.textContent = "SUBMIT QUESTION";
+});
+</script>
 </body>
 </html>
