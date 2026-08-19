@@ -248,7 +248,7 @@ Not every question will receive an answer.
 <script>
 const SUPABASE_URL = "https://frskyxuttbfczdlcpblc.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_frskyxuttbfczdlcpblc"; 
-const supabase = window.supabase.createClient(
+const supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_PUBLISHABLE_KEY
 );
@@ -267,7 +267,7 @@ form.addEventListener("submit", async function(event) {
     const book = document.getElementById("book").value;
     const question = document.getElementById("question").value.trim();
 
-    const { error } = await supabase
+ const { error } = await supabaseClient
         .from("reader_questions")
         .insert([
             {
