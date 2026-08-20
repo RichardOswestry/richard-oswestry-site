@@ -311,6 +311,27 @@ box.appendChild(question);
         const rejectButton = document.createElement("button");
 rejectButton.textContent = "REJECT";
 rejectButton.style.margin = "25px 10px 0 0";
+const approveButton = document.createElement("button");
+approveButton.textContent = "APPROVE";
+approveButton.style.margin = "25px 10px 0 0";
+
+approveButton.addEventListener("click", async function() {
+
+    const { error } = await supabaseClient
+        .from("reader_questions")
+        .update({ status: "approved" })
+        .eq("id", item.id);
+
+    if (error) {
+        console.error(error);
+        alert("Unable to approve this question.");
+        return;
+    }
+
+    await loadPendingCount();
+});
+
+box.appendChild(approveButton);
 
 rejectButton.addEventListener("click", async function() {
 
