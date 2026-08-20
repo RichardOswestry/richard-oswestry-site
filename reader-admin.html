@@ -308,6 +308,27 @@ box.appendChild(reader);
 box.appendChild(email);
 box.appendChild(questionLabel);
 box.appendChild(question);
+        const rejectButton = document.createElement("button");
+rejectButton.textContent = "REJECT";
+rejectButton.style.margin = "25px 10px 0 0";
+
+rejectButton.addEventListener("click", async function() {
+
+    const { error } = await supabaseClient
+        .from("reader_questions")
+        .update({ status: "rejected" })
+        .eq("id", item.id);
+
+    if (error) {
+        console.error(error);
+        alert("Unable to reject this question.");
+        return;
+    }
+
+    await loadPendingCount();
+});
+
+box.appendChild(rejectButton);
 
         questionList.appendChild(box);
     });
