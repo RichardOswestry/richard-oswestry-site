@@ -1,1 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Reader's Room Admin | Richard Oswestry</title>
+
+<style>
+
+body {
+    margin: 0;
+    background: #111;
+    color: #eee;
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 1.8;
+}
+
+header {
+    text-align: center;
+    padding: 40px 20px 25px;
+    border-bottom: 1px solid #333;
+}
+
+header h1 {
+    margin: 0;
+    color: #d4af37;
+    font-size: 28px;
+    letter-spacing: 4px;
+    font-weight: normal;
+}
+
+header p {
+    margin: 8px 0 0;
+    letter-spacing: 2px;
+    color: #aaa;
+}
+
+main {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 70px 30px;
+}
+
+h2 {
+    text-align: center;
+    color: #d4af37;
+    font-size: 30px;
+    font-weight: normal;
+    letter-spacing: 3px;
+}
+
+.login-box,
+.dashboard {
+    border-top: 1px solid #d4af37;
+    padding-top: 35px;
+    margin-top: 40px;
+}
+
+label {
+    display: block;
+    color: #d4af37;
+    margin-top: 22px;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+input {
+    width: 100%;
+    box-sizing: border-box;
+    background: #181818;
+    color: #eee;
+    border: 1px solid #555;
+    padding: 12px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 16px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #d4af37;
+}
+
+button {
+    display: block;
+    margin: 35px auto 0;
+    background: transparent;
+    color: #d4af37;
+    border: 1px solid #d4af37;
+    padding: 12px 28px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 16px;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #d4af37;
+    color: #111;
+}
+
+.counter {
+    text-align: center;
+    border: 1px solid #d4af37;
+    padding: 35px 20px;
+    margin-top: 35px;
+}
+
+.counter-number {
+    display: block;
+    color: #d4af37;
+    font-size: 56px;
+    line-height: 1;
+    margin-bottom: 15px;
+}
+
+.counter-label {
+    letter-spacing: 3px;
+    font-size: 16px;
+}
+
+.message {
+    text-align: center;
+    color: #aaa;
+    margin-top: 25px;
+}
+
+.logout {
+    margin-top: 45px;
+}
+
+.hidden {
+    display: none;
+}
+
+footer {
+    text-align: center;
+    border-top: 1px solid #333;
+    padding: 30px;
+    color: #888;
+    font-size: 14px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<h1>RICHARD OSWESTRY</h1>
+<p>PRIVATE READER'S ROOM</p>
+
+</header>
+
+<main>
+
+<div id="loginSection">
+
+<h2>AUTHOR LOGIN</h2>
+
+<div class="login-box">
+
+<label for="email">EMAIL ADDRESS</label>
+<input type="email" id="email" autocomplete="email">
+
+<label for="password">PASSWORD</label>
+<input type="password" id="password" autocomplete="current-password">
+
+<button id="loginButton">SIGN IN</button>
+
+<p id="loginMessage" class="message"></p>
+
+</div>
+
+</div>
+
+
+<div id="dashboardSection" class="dashboard hidden">
+
+<h2>READER'S ROOM</h2>
+
+<div class="counter">
+
+<span id="pendingCount" class="counter-number">0</span>
+
+<span class="counter-label">
+PENDING QUESTIONS
+</span>
+
+</div>
+
+<p id="dashboardMessage" class="message"></p>
+
+<button id="logoutButton" class="logout">
+SIGN OUT
+</button>
+
+</div>
+
+</main>
+
+<footer>
+© 2026 Richard Oswestry
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+const SUPABASE_URL =
+"https://frskyxuttbfczdlcpblc.supabase.co";
+
+/*
+Use the same public/anon key already working
+in reader-submit.html.
+*/
+
+const SUPABASE_PUBLISHABLE_KEY =
+"PASTE_THE_SAME_ANON_KEY_FROM_READER-SUBMIT-HERE";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
+
+
+const loginSection =
+document.getElementById("loginSection");
+
+const dashboardSection =
+document.getElementById("dashboardSection");
+
+const loginButton =
+document.getElementById("loginButton");
+
+const logoutButton =
+document.getElementById("logoutButton");
+
+const loginMessage =
+document.getElementById("loginMessage");
+
+const dashboardMessage =
+document.getElementById("dashboardMessage");
+
+const pendingCount =
+document.getElementById("pendingCount");
+
+
+async function loadPendingCount() {
+
+    const { count, error } = await supabaseClient
+        .from("reader_questions")
+        .select("*", { count: "exact", head: true })
+        .eq("status", "pending");
+
+    if (error) {
+        console.error(error);
+        dashboardMessage.textContent =
+            "Unable to load pending questions.";
+        return;
+    }
+
+    pendingCount.textContent = count || 0;
+}
+
+
+async function showDashboard() {
+
+    loginSection.classList.add("hidden");
+    dashboardSection.classList.remove("hidden");
+
+    await loadPendingCount();
+}
+
+
+loginButton.addEventListener("click", async function() {
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const password =
+        document.getElementById("password").value;
+
+    loginMessage.textContent = "SIGNING IN...";
+
+    const { error } =
+        await supabaseClient.auth.signInWithPassword({
+            email: email,
+            password: password
+        });
+
+    if (error) {
+
+        console.error(error);
+
+        loginMessage.textContent =
+            "Login failed. Please check your details.";
+
+        return;
+    }
+
+    loginMessage.textContent = "";
+
+    await showDashboard();
+
+});
+
+
+logoutButton.addEventListener("click", async function() {
+
+    await supabaseClient.auth.signOut();
+
+    dashboardSection.classList.add("hidden");
+    loginSection.classList.remove("hidden");
+
+    pendingCount.textContent = "0";
+
+});
+
+
+supabaseClient.auth.getSession().then(async function(result) {
+
+    if (result.data.session) {
+        await showDashboard();
+    }
+
+});
+
+</script>
+
+</body>
+</html>
