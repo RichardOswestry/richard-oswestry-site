@@ -189,7 +189,7 @@ PENDING QUESTIONS
 </span>
 
 </div>
-
+<div id="questionList"></div>
 <p id="dashboardMessage" class="message"></p>
 
 <button id="logoutButton" class="logout">
@@ -250,10 +250,11 @@ document.getElementById("pendingCount");
 
 async function loadPendingCount() {
 
-    const { count, error } = await supabaseClient
+    const { data, error } = await supabaseClient
         .from("reader_questions")
-        .select("*", { count: "exact", head: true })
-        .eq("status", "pending");
+        .select("id, created_at, name, email, book, question, status")
+        .eq("status", "pending")
+        .order("created_at", { ascending: false });
 
     if (error) {
         console.error(error);
@@ -262,7 +263,54 @@ async function loadPendingCount() {
         return;
     }
 
-    pendingCount.textContent = count || 0;
+    pendingCount.textContent = data.length;
+
+    const questionList =
+        document.getElementById("questionList");
+
+    questionList.innerHTML = "";
+
+    if (data.length === 0) {
+        questionList.innerHTML =
+            "<p class='message'>No pending questions.</p>";
+        return;
+    }
+
+    data.forEach(function(item) {
+
+        const box = document.createElement("div");
+
+        box.style.borderTop = "1px solid #333";
+        box.style.padding = "30px 0";
+        box.style.marginTop = "30px";
+
+      const bookTitle = document.createElement("p");
+bookTitle.style.color = "#d4af37";
+bookTitle.style.letterSpacing = "2px";
+bookTitle.textContent = item.book;
+
+const reader = document.createElement("p");
+reader.innerHTML = "<strong>Reader:</strong> ";
+reader.appendChild(document.createTextNode(item.name));
+
+const email = document.createElement("p");
+email.innerHTML = "<strong>Email:</strong> ";
+email.appendChild(document.createTextNode(item.email));
+
+const questionLabel = document.createElement("p");
+questionLabel.innerHTML = "<strong>Question:</strong>";
+
+const question = document.createElement("p");
+question.textContent = item.question;
+
+box.appendChild(bookTitle);
+box.appendChild(reader);
+box.appendChild(email);
+box.appendChild(questionLabel);
+box.appendChild(question);
+
+        questionList.appendChild(box);
+    });
 }
 
 
