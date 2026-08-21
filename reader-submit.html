@@ -250,7 +250,14 @@ const SUPABASE_URL = "https://frskyxuttbfczdlcpblc.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZyc2t5eHV0dGJmY3pkbGNwYmxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODcxMzk2MjksImV4cCI6MjEwMjcxNTYyOX0.U6dZ_OsSLld5XIpqFzEmUyDfQDcXtZzShL6UCQbN8MQ";
 const supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
+    SUPABASE_PUBLISHABLE_KEY,
+    {
+        auth: {
+            persistSession: false,
+            autoRefreshToken: false,
+            detectSessionInUrl: false
+        }
+    }
 );
 
 const form = document.querySelector("form");
