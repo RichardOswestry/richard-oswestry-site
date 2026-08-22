@@ -191,7 +191,9 @@ PENDING QUESTIONS
 </div>
 <div id="questionList"></div>
 <p id="dashboardMessage" class="message"></p>
+<h2 style="margin-top: 60px;">PUBLISHED QUESTIONS</h2>
 
+<div id="publishedList"></div>
 <button id="logoutButton" class="logout">
 SIGN OUT
 </button>
@@ -372,14 +374,107 @@ box.appendChild(rejectButton);
     });
 }
 
+async function loadPublishedQuestions() {
 
-async function showDashboard() {
+    const { data, error } = await supabaseClient
+        .from("reader_questions")
+        .select("id, created_at, name, book, question, answer, status")
+        .eq("status", "approved")
+        .not("answer", "is", null)
+        .order("created_at", { ascending: false });
+
+    if (error) {
+        console.error(error);
+        return;
+    }
+
+    const publishedList = document.getElementById("publishedList");
+
+    if (!publishedList) {
+        return;
+    }
+
+    publishedList.innerHTML = "";
+
+    if (data.length === 0) {
+        publishedList.innerHTML =
+            "<p class='message'>No published questions.</p>";
+        return;
+    }
+
+    data.forEach(function(item) {
+
+        const box = document.createElement("div");
+
+        box.style.borderTop = "1px solid #333";
+        box.style.padding = "30px 0";
+        box.style.marginTop = "30px";
+
+        const bookTitle = document.createElement("p");
+        bookTitle.style.color = "#d4af37";
+        bookTitle.style.letterSpacing = "2px";
+        bookTitle.textContent = item.book;
+
+        const reader = document.createElement("p");
+        reader.innerHTML = "<strong>Reader:</strong> ";
+        reader.appendChild(document.createTextNode(item.name));
+
+        const question = document.createElement("p");
+        question.innerHTML = "<strong>Question:</strong> ";
+        question.appendChild(document.createTextNode(item.question));
+
+        const answer = document.createElement("p");
+        answer.innerHTML = "<strong>Richard Oswestry:</strong> ";
+        answer.appendChild(document.createTextNode(item.answer));
+
+        const removeButton = document.createElement("button");
+        removeButton.textContent = "REMOVE";
+        removeButton.style.margin = "25px 10px 0 0";
+
+        removeButton.addEventListener("click", async function() {
+
+            if (!confirm("Remove this published question from the Reader's Room?")) {
+                return;
+            }
+
+            const { error } = await supabaseClient
+                .from("reader_questions")
+                .update({ status: "rejected" })
+                .eq("id", item.id);
+
+            if (error) {
+                console.error(error);
+                alert("Unable to remove this question.");
+                return;
+            }
+
+            await loadPublishedQuestions();
+        });
+        box.appendChild(bookTitle);
+        box.appendChild(reader);
+        box.appendChild(question);
+        box.appendChild(answer);
+        box.appendChild(removeButton);
+
+        publishedList.appendChild(box);
+    });
+}
+        box.appendChild(bookTitle);
+        box.appendChild(reader);
+        box.appendChild(question);
+        box.appendChild(answer);
+        box.appendChild(removeButton);
+
+        publishedList.appendChild(box);
+    });
+}    
+    async function showDashboard() {
 
     loginSection.classList.add("hidden");
     dashboardSection.classList.remove("hidden");
 
-    await loadPendingCount();
-}
+   await loadPendingCount();
+await loadPublishedQuestions();
 
 
 loginButton.addEventListener("click", async function() {
