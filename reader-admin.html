@@ -317,9 +317,23 @@ approveButton.style.margin = "25px 10px 0 0";
 
 approveButton.addEventListener("click", async function() {
 
+    const answer = prompt("Enter your answer to this question:");
+
+    if (answer === null) {
+        return;
+    }
+
+    if (answer.trim() === "") {
+        alert("Please enter an answer.");
+        return;
+    }
+
     const { error } = await supabaseClient
         .from("reader_questions")
-        .update({ status: "approved" })
+        .update({
+            status: "approved",
+            answer: answer.trim()
+        })
         .eq("id", item.id);
 
     if (error) {
@@ -328,8 +342,11 @@ approveButton.addEventListener("click", async function() {
         return;
     }
 
+    alert("Question approved and answer saved.");
+
     await loadPendingCount();
 });
+        
 
 box.appendChild(approveButton);
 
