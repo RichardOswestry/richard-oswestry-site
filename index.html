@@ -138,6 +138,29 @@
 <footer>
     &copy; 2026 Richard Oswestry
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL =
+"https://frskyxuttbfczdlcpblc.supabase.co";
+
+const SUPABASE_PUBLISHABLE_KEY =
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsImFub24iLCJpYXQiOjE3ODcxMzk2MjksImV4cCI6MjEwMjcxNTYyOX0.U6dZ_OsSLld5XIpqFzEmUyDfQDcXtZShL6UCQbN8MQ";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
+
+supabaseClient
+    .from("site_visitors")
+    .insert({})
+    .then(function(result) {
+        if (result.error) {
+            console.error("Visitor tracking error:", result.error);
+        }
+    });
+</script>
 
 </body>
     
