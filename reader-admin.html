@@ -180,6 +180,31 @@ footer {
 
 <h2>READER'S ROOM</h2>
 
+<h2 style="margin-top: 45px;">SITE STATISTICS</h2>
+
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 30px;">
+
+    <div class="counter">
+        <span id="todayVisits" class="counter-number">0</span>
+        <span class="counter-label">TODAY</span>
+    </div>
+
+    <div class="counter">
+        <span id="sevenDayVisits" class="counter-number">0</span>
+        <span class="counter-label">7 DAYS</span>
+    </div>
+
+    <div class="counter">
+        <span id="thirtyDayVisits" class="counter-number">0</span>
+        <span class="counter-label">30 DAYS</span>
+    </div>
+
+    <div class="counter">
+        <span id="allTimeVisits" class="counter-number">0</span>
+        <span class="counter-label">ALL TIME</span>
+    </div>
+
+</div>
 <div class="counter">
 
 <span id="pendingCount" class="counter-number">0</span>
@@ -460,6 +485,71 @@ async function loadPublishedQuestions() {
     });
 }
       
+async function loadSiteStatistics() {
+
+    const now = new Date();
+
+    const todayStart = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate()
+    );
+
+    const sevenDayStart = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate() - 6
+    );
+
+    const thirtyDayStart = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate() - 29
+    );
+
+    const todayResult = await supabaseClient
+        .from("site_visitors")
+        .select("*", { count: "exact", head: true })
+        .gte("visited_at", todayStart.toISOString());
+
+    const sevenDayResult = await supabaseClient
+        .from("site_visitors")
+        .select("*", { count: "exact", head: true })
+        .gte("visited_at", sevenDayStart.toISOString());
+
+    const thirtyDayResult = await supabaseClient
+        .from("site_visitors")
+        .select("*", { count: "exact", head: true })
+        .gte("visited_at", thirtyDayStart.toISOString());
+
+    const allTimeResult = await supabaseClient
+        .from("site_visitors")
+        .select("*", { count: "exact", head: true });
+
+    if (
+        todayResult.error ||
+        sevenDayResult.error ||
+        thirtyDayResult.error ||
+        allTimeResult.error
+    ) {
+        console.error("Unable to load site statistics.");
+        return;
+    }
+
+    document.getElementById("todayVisits").textContent =
+        todayResult.count;
+
+    document.getElementById("sevenDayVisits").textContent =
+        sevenDayResult.count;
+
+    document.getElementById("thirtyDayVisits").textContent =
+        thirtyDayResult.count;
+
+    document.getElementById("allTimeVisits").textContent =
+        allTimeResult.count;
+}
+
+
     async function showDashboard() {
 
     loginSection.classList.add("hidden");
@@ -467,7 +557,7 @@ async function loadPublishedQuestions() {
 
    await loadPendingCount();
 await loadPublishedQuestions();
-
+await loadSiteStatistics();
 }
 loginButton.addEventListener("click", async function() {
 
