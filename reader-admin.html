@@ -532,12 +532,8 @@ async function loadSiteStatistics() {
         thirtyDayResult.error ||
         allTimeResult.error
     ) {
-     console.error("Statistics errors:", {
-    today: todayResult.error,
-    sevenDay: sevenDayResult.error,
-    thirtyDay: thirtyDayResult.error,
-    allTime: allTimeResult.error
-});
+   console.error("Unable to load site statistics.");
+
         return;
     }
 
