@@ -256,7 +256,19 @@ const supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_PUBLISHABLE_KEY
 );
+async function recordVisit() {
+    const { error } = await supabaseClient
+        .from("site_visitors")
+        .insert({
+            visited_at: new Date().toISOString()
+        });
 
+    if (error) {
+        console.error("Unable to record site visit:", error);
+    }
+}
+
+recordVisit();
 async function loadPublishedQuestions() {
 
     const container = document.getElementById("published-questions");
