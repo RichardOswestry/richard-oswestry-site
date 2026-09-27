@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -157,14 +158,39 @@ const supabaseClient = window.supabase.createClient(
     SUPABASE_PUBLISHABLE_KEY
 );
 
-supabaseClient
-    .from("site_visitors")
-    .insert({})
-    .then(function(result) {
-        if (result.error) {
-            console.error("Visitor tracking error:", result.error);
+(async function () {
+    let visitorData = {};
+
+    try {
+        const locationResponse = await fetch("https://ipapi.co/json/");
+
+        if (locationResponse.ok) {
+            const location = await locationResponse.json();
+
+            visitorData = {
+                country: location.country_name || null,
+                city: location.city || null,
+                latitude: typeof location.latitude === "number"
+                    ? location.latitude
+                    : null,
+                longitude: typeof location.longitude === "number"
+                    ? location.longitude
+                    : null
+            };
         }
-    });
+    } catch (error) {
+        console.log("Location lookup unavailable:", error);
+    }
+
+    const result = await supabaseClient
+        .from("site_visitors")
+        .insert(visitorData);
+
+    if (result.error) {
+        console.error("Visitor tracking error:", result.error);
+    }
+})();
+    
 </script>
 
 </body>
