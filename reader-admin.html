@@ -6,7 +6,8 @@
 
 <title>Reader's Room Admin | Richard Oswestry</title>
 
-<style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />   
+    <style>
 
 body {
     margin: 0;
@@ -205,6 +206,14 @@ footer {
     </div>
 
 </div>
+  </div>
+
+<!-- VISITOR MAP -->
+<h2 style="margin-top: 45px;">VISITOR MAP</h2>
+
+<div id="visitorMap" style="height: 500px; width: 100%; border: 1px solid #333; margin-bottom: 30px;"></div>
+
+
 <div class="counter">
 
 <span id="pendingCount" class="counter-number">0</span>
@@ -613,6 +622,59 @@ supabaseClient.auth.getSession().then(async function(result) {
 
 });
 
+</script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    </script>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+(async function () {
+    const mapElement = document.getElementById("visitorMap");
+
+    if (!mapElement) return;
+
+    const map = L.map("visitorMap").setView([20, 0], 2);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "&copy; OpenStreetMap contributors"
+    }).addTo(map);
+
+    const { data, error } = await supabaseClient
+        .from("site_visitors")
+        .select("city, country, latitude, longitude, visited_at")
+        .not("latitude", "is", null)
+        .not("longitude", "is", null);
+
+    if (error) {
+        console.error("Visitor map error:", error);
+        return;
+    }
+
+    data.forEach(function (visitor) {
+        const marker = L.marker([
+            visitor.latitude,
+            visitor.longitude
+        ]).addTo(map);
+
+        const date = visitor.visited_at
+            ? new Date(visitor.visited_at).toLocaleString()
+            : "Unknown date";
+
+        marker.bindPopup(
+            "<strong>" +
+            (visitor.city || "Unknown city") +
+            ", " +
+            (visitor.country || "Unknown country") +
+            "</strong><br>" +
+            date
+        );
+    });
+
+    setTimeout(function () {
+        map.invalidateSize();
+    }, 500);
+})();
 </script>
 
 </body>
