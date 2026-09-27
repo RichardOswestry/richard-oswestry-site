@@ -651,25 +651,50 @@ supabaseClient.auth.getSession().then(async function(result) {
         return;
     }
 
-    data.forEach(function (visitor) {
-        const marker = L.marker([
-            visitor.latitude,
-            visitor.longitude
-        ]).addTo(map);
+    const grouped = {};
 
-        const date = visitor.visited_at
-            ? new Date(visitor.visited_at).toLocaleString()
-            : "Unknown date";
+data.forEach(function (visitor) {
+    const key = (visitor.city || "Unknown city") + ", " +
+                (visitor.country || "Unknown country");
 
-        marker.bindPopup(
-            "<strong>" +
-            (visitor.city || "Unknown city") +
-            ", " +
-            (visitor.country || "Unknown country") +
-            "</strong><br>" +
-            date
-        );
-    });
+    if (!grouped[key]) {
+        grouped[key] = {
+            city: visitor.city || "Unknown city",
+            country: visitor.country || "Unknown country",
+            latitude: visitor.latitude,
+            longitude: visitor.longitude,
+            count: 0,
+            lastVisit: visitor.visited_at
+        };
+    }
+
+    grouped[key].count++;
+
+    if (visitor.visited_at > grouped[key].lastVisit) {
+        grouped[key].lastVisit = visitor.visited_at;
+    }
+});
+
+Object.values(grouped).forEach(function (visitor) {
+    const marker = L.marker([
+        visitor.latitude,
+        visitor.longitude
+    ]).addTo(map);
+
+    const date = visitor.lastVisit
+        ? new Date(visitor.lastVisit).toLocaleString()
+        : "Unknown date";
+
+    marker.bindPopup(
+        "<strong>" +
+        visitor.city + ", " +
+        visitor.country +
+        "</strong><br>" +
+        "Visitors: " + visitor.count +
+        "<br>Last visit: " + date
+    );
+});
+       
 
     setTimeout(function () {
         map.invalidateSize();
