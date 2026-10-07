@@ -158,8 +158,11 @@ const supabaseClient = window.supabase.createClient(
     SUPABASE_PUBLISHABLE_KEY
 );
 
-(async function () {
-    let visitorData = {};
+let visitorData = {
+    device_type: /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)
+        ? "Mobile"
+        : "Desktop"
+};
 
     try {
         const locationResponse = await fetch("https://ipapi.co/json/");
@@ -167,16 +170,17 @@ const supabaseClient = window.supabase.createClient(
         if (locationResponse.ok) {
             const location = await locationResponse.json();
 
-            visitorData = {
-                country: location.country_name || null,
-                city: location.city || null,
-                latitude: typeof location.latitude === "number"
-                    ? location.latitude
-                    : null,
-                longitude: typeof location.longitude === "number"
-                    ? location.longitude
-                    : null
-            };
+      visitorData = {
+    device_type: visitorData.device_type,
+    country: location.country_name || null,
+    city: location.city || null,
+    latitude: typeof location.latitude === "number"
+        ? location.latitude
+        : null,
+    longitude: typeof location.longitude === "number"
+        ? location.longitude
+        : null
+};
         }
     } catch (error) {
         console.log("Location lookup unavailable:", error);
