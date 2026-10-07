@@ -157,7 +157,7 @@ const supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_PUBLISHABLE_KEY
 );
-
+(async function () {
 let visitorData = {
     device_type: /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)
         ? "Mobile"
