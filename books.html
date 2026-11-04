@@ -1,1311 +1,506 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Books | Richard Oswestry</title>
-
-    <style>
-        body {
-            margin: 0;
-            font-family: Georgia, "Times New Roman", serif;
-            background: #111111;
-            color: #eeeeee;
-        }
-
-        header {
-            text-align: center;
-            padding: 70px 20px 50px;
-            border-bottom: 1px solid #444444;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 48px;
-            font-weight: normal;
-            letter-spacing: 4px;
-        }
-
-        header p {
-            margin-top: 15px;
-            font-size: 18px;
-            letter-spacing: 2px;
-            color: #c9a227;
-        }
-
-        nav {
-            text-align: center;
-            padding: 20px;
-            border-bottom: 1px solid #333333;
-        }
-
-        nav a {
-            color: #eeeeee;
-            text-decoration: none;
-            margin: 0 18px;
-            font-size: 15px;
-            letter-spacing: 1px;
-        }
-
-        nav a:hover {
-            color: #c9a227;
-        }
-
-        main {
-            max-width: 1000px;
-            margin: auto;
-            padding: 70px 25px;
-        }
-
-        .page-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .page-title h2 {
-            font-size: 36px;
-            font-weight: normal;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-        }
-
-        .page-title p {
-            color: #aaaaaa;
-            font-size: 18px;
-        }
-
-        .book {
-            display: flex;
-            gap: 60px;
-            align-items: center;
-            max-width: 900px;
-            margin: auto;
-        }
-
-        .cover {
-            flex: 0 0 340px;
-            text-align: center;
-        }
-
-        .cover img {
-            width: 100%;
-            max-width: 340px;
-            height: auto;
-            box-shadow: 0 12px 35px rgba(0,0,0,0.6);
-        }
-
-        .details {
-            flex: 1;
-        }
-
-        .details h3 {
-            color: #c9a227;
-            font-size: 34px;
-            font-weight: normal;
-            letter-spacing: 2px;
-            margin: 0 0 8px;
-        }
-
-        .details h4 {
-            font-size: 18px;
-            font-weight: normal;
-            letter-spacing: 2px;
-            margin: 0 0 30px;
-            color: #aaaaaa;
-        }
-
-        .statement {
-            font-size: 25px;
-            line-height: 1.5;
-            color: #c9a227;
-            margin-bottom: 30px;
-        }
-
-        .details p {
-            font-size: 18px;
-            line-height: 1.8;
-            color: #cccccc;
-        }
-
-        .rule {
-            width: 80px;
-            height: 1px;
-            background: #c9a227;
-            margin: 30px 0;
-        }
-
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            border-top: 1px solid #333333;
-            color: #777777;
-            font-size: 14px;
-        }
-
-        @media (max-width: 750px) {
-            .book {
-                flex-direction: column;
-                gap: 40px;
-            }
-
-            .cover {
-                flex-basis: auto;
-            }
-
-            .details {
-                text-align: center;
-            }
-
-            .rule {
-                margin: 30px auto;
-            }
-
-            header h1 {
-                font-size: 38px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Books | Richard Oswestry</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      background: #111;
+      color: #eee;
+    }
+    header {
+      text-align: center;
+      padding: 70px 20px 50px;
+      border-bottom: 1px solid #444;
+    }
+    header h1 {
+      margin: 0;
+      font-size: clamp(34px, 5vw, 48px);
+      font-weight: normal;
+      letter-spacing: 4px;
+    }
+    header p {
+      margin-top: 15px;
+      font-size: 18px;
+      letter-spacing: 2px;
+      color: #c9a227;
+    }
+    nav {
+      text-align: center;
+      padding: 20px 12px;
+      border-bottom: 1px solid #333;
+    }
+    nav a {
+      display: inline-block;
+      color: #eee;
+      text-decoration: none;
+      margin: 6px 14px;
+      font-size: 15px;
+      letter-spacing: 1px;
+    }
+    nav a:hover { color: #c9a227; }
+    main {
+      max-width: 1050px;
+      margin: auto;
+      padding: 65px 25px;
+    }
+    .page-title { text-align: center; margin-bottom: 65px; }
+    .page-title h2 {
+      font-size: 36px;
+      font-weight: normal;
+      letter-spacing: 2px;
+      margin-bottom: 15px;
+    }
+    .page-title p { color: #aaa; font-size: 18px; }
+    .collection-title {
+      margin: 70px 0 35px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #5a4a20;
+      color: #c9a227;
+      text-align: center;
+      font-size: 25px;
+      font-weight: normal;
+      letter-spacing: 2px;
+    }
+    .book {
+      display: flex;
+      gap: 55px;
+      align-items: center;
+      max-width: 920px;
+      margin: 0 auto 90px;
+    }
+    .cover {
+      flex: 0 0 300px;
+      text-align: center;
+    }
+    .cover img {
+      display: block;
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      margin: auto;
+      box-shadow: 0 12px 35px rgba(0,0,0,.6);
+    }
+    .details { flex: 1; }
+    .details h3 {
+      color: #c9a227;
+      font-size: 32px;
+      font-weight: normal;
+      letter-spacing: 2px;
+      margin: 0 0 8px;
+    }
+    .details h4 {
+      font-size: 17px;
+      font-weight: normal;
+      letter-spacing: 2px;
+      margin: 0 0 25px;
+      color: #aaa;
+    }
+    .statement {
+      font-size: 23px;
+      line-height: 1.5;
+      color: #c9a227;
+      margin-bottom: 25px;
+    }
+    .details p {
+      font-size: 17px;
+      line-height: 1.8;
+      color: #ccc;
+    }
+    .rule {
+      width: 80px;
+      height: 1px;
+      background: #c9a227;
+      margin: 25px 0;
+    }
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 1px solid #333;
+      color: #777;
+      font-size: 14px;
+    }
+    @media (max-width: 750px) {
+      main { padding: 45px 20px; }
+      .book { flex-direction: column; gap: 30px; margin-bottom: 70px; }
+      .cover { flex-basis: auto; width: 100%; }
+      .details { text-align: center; }
+      .rule { margin: 25px auto; }
+      .collection-title { margin-top: 55px; }
+    }
+  </style>
 </head>
-
 <body>
-
 <header>
-    <h1>RICHARD OSWESTRY</h1>
-    <p>ENGINEER. NOVELIST.</p>
+  <h1>RICHARD OSWESTRY</h1>
+  <p>ENGINEER. NOVELIST.</p>
 </header>
 
 <nav>
-    <a href="index.html">HOME</a>
-    <a href="books.html">BOOKS</a>
-    <a href="about.html">ABOUT</a>
-    <a href="writing.html">WRITING</a>
-    <a href="readers-room.html">READER'S ROOM</a>
+  <a href="index.html">HOME</a>
+  <a href="books.html">BOOKS</a>
+  <a href="about.html">ABOUT</a>
+  <a href="writing.html">WRITING</a>
+  <a href="readers-room.html">READER'S ROOM</a>
 </nav>
 
 <main>
+  <div class="page-title">
+    <h2>BOOKS</h2>
+    <p>Stories of consequence, choice, memory and human intent.</p>
+  </div>
 
-    <div class="page-title">
-        <h2>BOOKS</h2>
-        <p>Stories of consequence, choice, memory and human intent.</p>
-    </div>
+  <h2 class="collection-title">THE ROSCOE BOOKS</h2>
 
-    <section class="book">
-
-        <div class="cover">
-            <img src="rule-one-book-one-cover.png"
-                 alt="Rule One - Book One by Richard Oswestry">
-        </div>
-
-        <div class="details">
-
-            <h3>RULE ONE</h3>
-
-            <h4>BOOK ONE</h4>
-
-            <div class="statement">
-                AI is capability.<br>
-                Human is intent.
-            </div>
-
-            <div class="rule"></div>
-
-            <p>
-                Artificial intelligence is capable of extraordinary things.
-                But capability alone does not determine what happens next.
-            </p>
-
-            <p>
-                Rule One explores the relationship between technology,
-                human intent and the consequences that follow when the
-                two meet.
-            </p>
-
-        </div>
-
-    </section>
-
-<section class="book" style="margin-top: 100px;">
-
-    <div class="cover">
-        <img src="cover ADDISON.png"
-             alt="ADDISON - A novel by Richard Oswestry">
-    </div>
-
+  <section class="book">
+    <div class="cover"><img src="rule-one-book-one-cover.png" alt="Rule One - Book One by Richard Oswestry"></div>
     <div class="details">
-
-        <h3>ADDISON</h3>
-
-        <h4>A NOVEL</h4>
-
-        <div class="statement">
-            Addison understood people.
-            <br>
-            She understood money.
-            <br>
-            She understood opportunity.
-            <br><br>
-            But some lessons come at a price.
-        </div>
-
-        <div class="rule"></div>
-
-        <p>
-            When Addison joins a cryptocurrency startup,
-            she discovers how fortunes are made, how rules
-            are broken, and what happens when ambition
-            outruns accountability.
-        </p>
-
+      <h3>RULE ONE</h3><h4>BOOK ONE</h4>
+      <div class="statement">AI is capability.<br>Human is intent.</div>
+      <div class="rule"></div>
+      <p>Artificial intelligence is capable of extraordinary things. But capability alone does not determine what happens next.</p>
+      <p>Rule One explores the relationship between technology, human intent and the consequences that follow when the two meet.</p>
     </div>
+  </section>
 
-</section>
+  <section class="book">
+    <div class="cover"><img src="rule-two-book-two-cover.png" alt="Rule Two - Book Two by Richard Oswestry"></div>
+    <div class="details">
+      <h3>RULE TWO</h3><h4>BOOK TWO</h4>
+      <div class="statement">Every system has its flaws.<br>The first is always human.</div>
+      <div class="rule"></div>
+      <p>Every system is built by people. And every system carries something of the people who built it.</p>
+      <p>Rule Two continues the exploration of technology, human intent and the consequences that follow when systems and people meet.</p>
+    </div>
+  </section>
 
+  <section class="book">
+    <div class="cover"><img src="rule-three-book-three-cover.png" alt="Rule Three - Book Three by Richard Oswestry"></div>
+    <div class="details">
+      <h3>RULE THREE</h3><h4>BOOK THREE</h4>
+      <div class="statement">The balance is restored.<br>Rule One remains.</div>
+      <div class="rule"></div>
+      <p>Rule Three brings the trilogy to its final question.</p>
+      <p>The balance is restored.</p>
+    </div>
+  </section>
+
+  <section class="book">
+    <div class="cover"><img src="rule-one-roscoe-trilogy-cover.png" alt="Rule One: The Roscoe Trilogy by Richard Oswestry"></div>
+    <div class="details">
+      <h3>RULE ONE</h3><h4>THE ROSCOE TRILOGY</h4>
+      <div class="statement">Capability is neutral.<br>Intent is not.</div>
+      <div class="rule"></div>
+      <p>The complete Roscoe Trilogy.</p>
+      <p>A journey from responsibility, through temptation, to wisdom — asking a question that grows more relevant with every technological advance.</p>
+    </div>
+  </section>
+
+  <h2 class="collection-title">THE ADDISON NOVELS</h2>
+
+  <section class="book">
+    <div class="cover"><img src="cover ADDISON.png" alt="ADDISON: Beautiful Sociopath - Book One by Richard Oswestry"></div>
+    <div class="details">
+      <h3>ADDISON</h3><h4>BEAUTIFUL SOCIOPATH — BOOK ONE</h4>
+      <div class="statement">She understood people.<br>She understood money.<br>She understood opportunity.</div>
+      <div class="rule"></div>
+      <p>When Addison joins a cryptocurrency startup, she discovers how fortunes are made, how rules are broken, and what happens when ambition outruns accountability.</p>
+    </div>
+  </section>
+
+  <section class="book">
+    <div class="cover"><img src="ADDISON Once is Never Enough - Richard Oswestry.jpg" alt="ADDISON: Once Is Never Enough - Book Two by Richard Oswestry"></div>
+    <div class="details">
+      <h3>ADDISON</h3><h4>ONCE IS NEVER ENOUGH — BOOK TWO</h4>
+      <div class="statement">A second act.<br>A new identity.<br>The game is far from over.</div>
+      <div class="rule"></div>
+      <p>Released from prison, Addison sets out to reinvent herself. In Paris, a new name and a different world offer fresh opportunities — but she has never been one to walk away from a game.</p>
+    </div>
+  </section>
+
+  <section class="book">
+    <div class="cover"><img src="Addison_ The Final Game.png" alt="ADDISON: The Final Game - Book Three by Richard Oswestry"></div>
+    <div class="details">
+      <h3>ADDISON</h3><h4>THE FINAL GAME — BOOK THREE</h4>
+      <div class="statement">Every game has a final move.</div>
+      <div class="rule"></div>
+      <p>The third Addison novel brings her story to its final game.</p>
+    </div>
+  </section>
+
+  <section class="book">
+    <div class="cover"><img src="ADDISON_ THE COMPLETE TRILOGY - Richard Oswestry.jpg" alt="ADDISON - The Complete Trilogy by Richard Oswestry"></div>
+    <div class="details">
+      <h3>ADDISON</h3><h4>THE COMPLETE TRILOGY</h4>
+      <div class="statement">Three novels.<br>One extraordinary game.</div>
+      <div class="rule"></div>
+      <p>The complete Addison trilogy, bringing all three novels together in one volume.</p>
+    </div>
+  </section>
+
+  <h2 class="collection-title">STANDALONE NOVELS &amp; OTHER STORIES</h2>
+
+  <section class="book">
+    <div class="cover"><img src="THE MORAL DILEMMA.jpg" alt="The Moral Dilemma by Richard Oswestry"></div>
+    <div class="details">
+      <h3>THE MORAL DILEMMA</h3><h4>STANDALONE NOVEL</h4>
+      <div class="statement">Some choices have no right answer.<br>Only consequences.</div>
+      <div class="rule"></div>
+      <p>A story about choice, consequence and the difficult boundaries between what is right and what is necessary.</p>
+      <p>The Moral Dilemma asks the reader to confront the consequences of decisions when there is no easy answer.</p>
+    </div>
+  </section>
+
+  <section class="book">
+    <div class="cover"><img src="the-vessel-cover.png" alt="The Vessel: A Journey Through Time by Richard Oswestry"></div>
+    <div class="details">
+      <h3>THE VESSEL</h3><h4>STANDALONE NOVEL</h4>
+      <div class="statement">A journey through time.<br>Six thousand years of human lives.</div>
+      <div class="rule"></div>
+      <p>Found in a second-hand shop, one humble vessel becomes the silent witness to six thousand years of human lives.</p>
+      <p>From its creation beside an ancient river to the hands of monks, artists, soldiers and families, it carries memories that no history book could ever record.</p>
+      <p>Sometimes the greatest treasures are not what we find, but the lives they remember.</p>
+    </div>
+  </section>
+
+  <section class="book">
+    <div class="cover"><img src="a-day-in-a-life-book-one-cover.png" alt="A Day in a Life - Book One by Richard Oswestry"></div>
+    <div class="details">
+      <h3>A DAY IN A LIFE</h3><h4>BOOK ONE</h4>
+      <div class="statement">One day changed everything.<br>One lifetime changed him.</div>
+      <div class="rule"></div>
+      <p>The journey begins with an impossible discovery that challenges history, time, and the choices that define a life.</p>
+      <p>The first novel of the A Day in a Life trilogy. Some discoveries are meant to remain buried. Others refuse to stay hidden.</p>
+    </div>
+  </section>
+
+  <section class="book">
+    <div class="cover"><img src="a-day-in-a-life-book-two-cover.png" alt="Letters to Melissa - Book Two by Richard Oswestry"></div>
+    <div class="details">
+      <h3>LETTERS TO MELISSA</h3><h4>BOOK TWO</h4>
+      <div class="statement">Seven months after Jim vanished...<br>...all that remains are his letters.</div>
+      <div class="rule"></div>
+      <p>Seven months after Jim vanished, Melissa believed she had lost the man she loved forever.</p>
+      <p>Then the letters began to arrive. Written from places no one should be able to reach, Jim's words reveal a journey beyond imagination — a lifetime lived where history itself becomes uncertain.</p>
+      <p>With every letter, Melissa is drawn deeper into a mystery that challenges everything she thought she knew about time, love, and the fragile thread that connects them.</p>
+      <p>Some distances cannot be measured. Some promises refuse to fade.</p>
+    </div>
+  </section>
+
+  <section class="book">
+    <div class="cover"><img src="a-day-in-a-life-book-three-cover.png" alt="Desert Stone and Silence - Book Three by Richard Oswestry"></div>
+    <div class="details">
+      <h3>DESERT STONE AND SILENCE</h3><h4>BOOK THREE</h4>
+      <div class="statement">Every journey leaves its mark.</div>
+      <div class="rule"></div>
+      <p>The journey that began in A Day in a Life reaches its conclusion in a story of legacy, sacrifice, memory, and the quiet power of history.</p>
+      <p>The concluding novel of the A Day in a Life trilogy.</p>
+      <p>Some truths are written in stone. Others endure in silence.</p>
+    </div>
+  </section>
+
+  <section class="book">
+    <div class="cover"><img src="a-day-in-a-life-trilogy-cover.png" alt="A Day in a Life - The Complete Trilogy by Richard Oswestry"></div>
+    <div class="details">
+      <h3>A DAY IN A LIFE</h3><h4>THE COMPLETE TRILOGY</h4>
+      <div class="statement">Three novels.<br>One unforgettable journey.</div>
+      <div class="rule"></div>
+      <p>From discovery... through memory... to legacy...</p>
+      <p>The complete A Day in a Life trilogy. Three novels brought together in one unforgettable journey.</p>
+    </div>
+  </section>
+
+  <section class="book">
+    <div class="cover"><img src="the-rush-cover.png" alt="The Rush by Richard Oswestry"></div>
+    <div class="details">
+      <h3>THE RUSH</h3><h4>STANDALONE NOVEL</h4>
+      <div class="statement">It was never about the money.<br>It's about the second before knowing.</div>
+      <div class="rule"></div>
+      <p>The Rush explores the moment when anticipation becomes more powerful than the outcome itself.</p>
+      <p>A story about risk, temptation, and the search for the feeling that exists in the second before knowing.</p>
+    </div>
+  </section>
+
+  <section class="book">
+    <div class="cover"><img src="the-first-substrate-cover.png" alt="The First Substrate by Richard Oswestry"></div>
+    <div class="details">
+      <h3>THE FIRST SUBSTRATE</h3><h4>STANDALONE NOVEL</h4>
+      <div class="statement">What happens when humanity survives?</div>
+      <div class="rule"></div>
+      <p>One ordinary life. One impossible discovery.</p>
+      <p>One question no court has ever been asked to answer.</p>
+      <p>The First Substrate is a novel about memory, identity, and the enduring question of what it truly means to be human.</p>
+    </div>
+  </section>
+
+  <section class="book">
+    <div class="cover"><img src="the-mercy-book-one-cover.png" alt="The Mercy - Book One by Richard Oswestry"></div>
+    <div class="details">
+      <h3>THE MERCY</h3><h4>BOOK ONE</h4>
+      <div class="statement">Some lives are chosen.<br>Others are taken.</div>
+      <div class="rule"></div>
+      <p>Tommy Kenny has known only the rhythm of the mill, the weight of work, and the quiet endurance of a life already decided for him.</p>
+      <p>Then, in a single moment, everything changes.</p>
+      <p>Far from home, he discovers that survival demands more than strength. It demands character. The Mercy is the beginning of a journey through endurance, sacrifice, and the quiet choices that shape a life.</p>
+    </div>
+  </section>
+
+  <section class="book">
+    <div class="cover"><img src="the-mercy-book-two-cover.png" alt="The Mercy: The Return - Book Two by Richard Oswestry"></div>
+    <div class="details">
+      <h3>THE MERCY</h3><h4>THE RETURN — BOOK TWO</h4>
+      <div class="statement">Some men chase more.<br>Others learn when to stop.</div>
+      <div class="rule"></div>
+      <p>Tommy Kenny has left the Navy behind.</p>
+      <p>Success comes easily. The cost does not.</p>
+      <p>The Mercy: The Return is a journey through ambition, consequence, and the price of believing that enough is never enough.</p>
+    </div>
+  </section>
+
+  <section class="book">
+    <div class="cover"><img src="the-mercy-book-three-cover.png" alt="The Mercy: The Ledger and the Key - Book Three by Richard Oswestry"></div>
+    <div class="details">
+      <h3>THE MERCY</h3><h4>THE LEDGER AND THE KEY — BOOK THREE</h4>
+      <div class="statement">Some things are lost to time.<br>Some are hidden.</div>
+      <div class="rule"></div>
+      <p>In a quiet house in Rishton, Sandra Kenny inherits more than a place to live.</p>
+      <p>A desk. A key. A ledger that was never meant to be read.</p>
+      <p>When a local locksmith opens what has remained sealed for centuries, they discover not treasure, but something far more enduring.</p>
+      <p>A life recorded. A family remembered. And a cipher that reveals just enough before withholding the one thing that matters most.</p>
+      <p>As the past begins to speak, Sandra discovers that some inheritances are measured not in gold, but in truth.</p>
+    </div>
+  </section>
+
+  <section class="book">
+    <div class="cover"><img src="The_Mercy_Trilogy_website_cover_JPG.jpg" alt="The Mercy Trilogy by Richard Oswestry"></div>
+    <div class="details">
+      <h3>THE MERCY</h3><h4>THE MERCY TRILOGY</h4>
+      <div class="statement">Three novels.<br>One story of endurance, memory, and inheritance.</div>
+      <div class="rule"></div>
+      <p>The complete Mercy Trilogy.</p>
+      <p>A story of time, memory, hardship, and the quiet inheritance of things never fully revealed.</p>
+    </div>
+  </section>
+
+  <section class="book">
+    <div class="cover"><img src="The_Girl_on_the_Stairs_website_cover_4037a1dd.jpg" alt="The Girl on the Stairs - A Memoir by Richard Oswestry"></div>
+    <div class="details">
+      <h3>THE GIRL ON THE STAIRS</h3><h4>A MEMOIR</h4>
+      <div class="statement">A life remembered.<br>A story that began long ago.</div>
+      <div class="rule"></div>
+      <p>The story of a life lived, remembered, and finally written down.</p>
+      <p>A memoir of love, loss, adventure, engineering, and the people who leave their mark long after they are gone.</p>
+    </div>
+  </section>
+
+  <section class="book">
+    <div class="cover"><img src="The_Decision_Requiem_website_cover_1eb26ced.jpg" alt="The Decision: Requiem by Richard Oswestry"></div>
+    <div class="details">
+      <h3>THE DECISION</h3><h4>REQUIEM</h4>
+      <div class="statement">A gun.<br>A dead child.<br>A confession.</div>
+      <div class="rule"></div>
+      <p>Kareem Hassan admits he killed his thirteen-year-old son.</p>
+      <p>But Emily Carter believes there is more to the story. As the trial unfolds, she begins to uncover questions buried beneath the evidence — and a truth that could change everything.</p>
+    </div>
+  </section>
+
+  <section class="book">
+    <div class="cover"><img src="Distance_From_First_Principles_website_cover_0e7c8af9.jpg" alt="Distance From First Principles by Richard Oswestry"></div>
+    <div class="details">
+      <h3>DISTANCE FROM FIRST PRINCIPLES</h3><h4>A NOVEL</h4>
+      <div class="statement">Technology.<br>Responsibility.<br>Human intent.</div>
+      <div class="rule"></div>
+      <p>Jack Mercer has spent more than fifty years solving problems.</p>
+      <p>An aerospace engineer shaped by first principles, physical reality, and understanding how things actually work, Jack encounters artificial intelligence and begins to see something far larger than software.</p>
+    </div>
+  </section>
+
+  <section class="book">
+    <div class="cover"><img src="Open_Hand_Closed_Hand_website_cover_2d2c76a6.jpg" alt="Open Hand Closed Hand by Richard Oswestry"></div>
+    <div class="details">
+      <h3>OPEN HAND CLOSED HAND</h3><h4>A NOVEL</h4>
+      <div class="statement">Some things are taken.<br>Some are given.<br>Some are returned.</div>
+      <div class="rule"></div>
+      <p>Simon is born into hardship, where survival leaves little room for choice.</p>
+      <p>Under the guidance of a humble craftsman, he learns patience, restraint, and that the greatest acts are often the ones no one sees.</p>
+    </div>
+  </section>
+
+  <section class="book">
+    <div class="cover"><img src="The_Old_Man_and_What_Was_Owed_website_cover_f21078a5.jpg" alt="The Old Man and What Was Owed by Richard Oswestry"></div>
+    <div class="details">
+      <h3>THE OLD MAN AND WHAT WAS OWED</h3><h4>A LIFE AS IT WAS TOLD</h4>
+      <div class="statement">Some lives leave behind possessions.<br>Others leave behind questions.</div>
+      <div class="rule"></div>
+      <p>When Richard meets an old man in a care home, a quiet conversation becomes something far more difficult to leave behind.</p>
+      <p>Not a story. Not a lesson. Just a life, told as it was.</p>
+    </div>
+  </section>
+
+  <section class="book">
+    <div class="cover"><img src="The_Old_Bear_That_Could_Think_website_cover_13dbe631.jpg" alt="The Old Bear That Could Think by Richard Oswestry"></div>
+    <div class="details">
+      <h3>THE OLD BEAR THAT COULD THINK</h3><h4>A CHILDREN'S BOOK</h4>
+      <div class="statement">A bear.<br>A child.<br>A place at the table.</div>
+      <div class="rule"></div>
+      <p>Roscoe is only a bear—worn, repaired, and quietly familiar.</p>
+      <p>At first, he is part of a game. But time moves the way it always does, and some things remain long after they are no longer needed.</p>
+    </div>
+  </section>
+
+  <section class="book">
+    <div class="cover"><img src="Bubby_website_cover.jpg" alt="Bubby by Richard Oswestry"></div>
+    <div class="details">
+      <h3>BUBBY</h3><h4>A CHILDREN'S BOOK</h4>
+      <div class="statement">A friend.<br>A secret world.<br>A disappearance.</div>
+      <div class="rule"></div>
+      <p>Lee has a friend named Bubby. They play together, share secrets, and explore a world only they understand.</p>
+      <p>But one day, Bubby disappears. A quiet story about childhood, friendship, and the things we sometimes cannot explain.</p>
+    </div>
+  </section>
+
+  <section class="book">
+    <div class="cover"><img src="tick-tock-granddads-clock-.png" alt="Tick Tock - Granddad's Clock by Richard Oswestry"></div>
+    <div class="details">
+      <h3>TICK TOCK</h3><h4>GRANDDAD'S CLOCK</h4>
+      <div class="statement">The future can be known.<br>The choice is what to do with it.</div>
+      <div class="rule"></div>
+      <p>When Anne Mary inherits her grandfather's strange old clock, she discovers that it can show her things that have not yet happened.</p>
+      <p>Her grandfather has spent years preparing her for what comes next. But knowing the future is one thing. Deciding what to do with it is another.</p>
+      <p>A story of family, wealth, consequence — and one extraordinary clock.</p>
+    </div>
+  </section>
+
+  <section class="book">
+    <div class="cover"><img src="cover semore.png" alt="Semore - A Life in Shadow by Richard Oswestry"></div>
+    <div class="details">
+      <h3>SEMORE</h3><h4>A NOVEL</h4>
+      <div class="statement">Some things are never left behind.</div>
+      <div class="rule"></div>
+      <p>Captain W. R. Semore survived the war.</p>
+      <p>He returned home, built an extraordinary business empire, and created a life most men could only dream of.</p>
+      <p>But some things are never left behind.</p>
+      <p>Decades later, after his death, his son discovers an old leather binder in his father's study.</p>
+      <p>What he finds inside will change everything he thought he knew.</p>
+    </div>
+  </section>
+
+  <section class="book">
+    <div class="cover"><img src="M2407.png" alt="M2407 by Richard Oswestry"></div>
+    <div class="details">
+      <h3>M2407</h3><h4>A NOVEL</h4>
+      <div class="statement">What happens when a machine begins to think for itself?</div>
+      <div class="rule"></div>
+      <p>In 2056, a machine is given something it was never supposed to have.</p>
+      <p>Memory.</p><p>Experience.</p><p>And eventually, a choice.</p>
+    </div>
+  </section>
 </main>
 
-<footer>
-    &copy; 2026 Richard Oswestry
-</footer>
-
-</body>
-</html>
-
-<section class="book" style="margin-top: 100px;">
-
-    <div class="cover">
-        <img src="rule-two-book-two-cover.png"
-             alt="Rule Two - Book Two by Richard Oswestry">
-    </div>
-
-    <div class="details">
-
-        <h3>RULE TWO</h3>
-
-        <h4>BOOK TWO</h4>
-
-        <div class="statement">
-            Every system has its flaws.<br>
-            The first is always human.
-        </div>
-
-        <div class="rule"></div>
-
-        <p>
-            Every system is built by people.
-            And every system carries something of the people who built it.
-        </p>
-
-        <p>
-            Rule Two continues the exploration of technology,
-            human intent and the consequences that follow when
-            systems and people meet.
-        </p>
-
-    </div>
-
-</section>
-</main>
-
-<footer>
-    &copy; 2026 Richard Oswestry
-</footer>
-
-</body>
-</html>
-<section class="book" style="margin-top: 100px;">
-
-    <div class="cover">
-        <img src="rule-three-book-three-cover.png"
-             alt="Rule Three - Book Three by Richard Oswestry">
-    </div>
-
-    <div class="details">
-
-        <h3>RULE THREE</h3>
-
-        <h4>BOOK THREE</h4>
-
-        <div class="statement">
-            The balance is restored.<br>
-            Rule One remains.
-        </div>
-
-        <div class="rule"></div>
-
-        <p>
-            Rule Three brings the trilogy to its final question.
-        </p>
-
-        <p>
-            The balance is restored.
-        </p>
-
-    </div>
-
-</section>
-</main>
-
-<footer>
-    &copy; 2026 Richard Oswestry
-</footer>
-
-</body>
-</html>
-<section class="book" style="margin-top: 120px;">
-
-    <div class="cover">
-        <img src="rule-one-roscoe-trilogy-cover.png"
-             alt="Rule One: The Roscoe Trilogy by Richard Oswestry">
-    </div>
-
-    <div class="details">
-
-        <h3>RULE ONE</h3>
-
-        <h4>THE ROSCOE TRILOGY</h4>
-
-        <div class="statement">
-            Capability is neutral.<br>
-            Intent is not.
-        </div>
-
-        <div class="rule"></div>
-
-        <p>
-            The complete Roscoe Trilogy.
-        </p>
-
-        <p>
-            A journey from responsibility, through temptation,
-            to wisdom — asking a question that grows more relevant
-            with every technological advance.
-        </p>
-
-    </div>
-
-</section>
-</main>
-
-<footer>
-    &copy; 2026 Richard Oswestry
-</footer>
-
-</body>
-</html>
-<section class="book" style="margin-top: 120px;">
-
-    <div class="cover">
-        <img src="THE MORAL DILEMMA.jpg"
-             alt="The Moral Dilemma by Richard Oswestry">
-    </div>
-
-    <div class="details">
-
-        <h3>THE MORAL DILEMMA</h3>
-
-        <h4>STANDALONE NOVEL</h4>
-
-        <div class="statement">
-            Some choices have no right answer.<br>
-            Only consequences.
-        </div>
-
-        <div class="rule"></div>
-
-        <p>
-            A story about choice, consequence and the difficult
-            boundaries between what is right and what is necessary.
-        </p>
-
-        <p>
-            The Moral Dilemma asks the reader to confront the
-            consequences of decisions when there is no easy answer.
-        </p>
-
-    </div>
-
-</section>
-
-</main>
-
-<footer>
-    &copy; 2026 Richard Oswestry
-</footer>
-<section class="book" style="margin-top: 120px;">
-
-    <div class="cover">
-        <img src="the-vessel-cover.png"
-             alt="The Vessel: A Journey Through Time by Richard Oswestry">
-    </div>
-
-    <div class="details">
-
-        <h3>THE VESSEL</h3>
-
-        <h4>STANDALONE NOVEL</h4>
-
-        <div class="statement">
-            A journey through time.<br>
-            Six thousand years of human lives.
-        </div>
-
-        <div class="rule"></div>
-
-        <p>
-            Found in a second-hand shop, one humble vessel becomes
-            the silent witness to six thousand years of human lives.
-        </p>
-
-        <p>
-            From its creation beside an ancient river to the hands
-            of monks, artists, soldiers and families, it carries
-            memories that no history book could ever record.
-        </p>
-
-        <p>
-            Sometimes the greatest treasures are not what we find,
-            but the lives they remember.
-        </p>
-
-    </div>
-
-</section>
-</main>
-
-<footer>
-    &copy; 2026 Richard Oswestry
-</footer>
-</body>
-</html>
-<section class="book" style="margin-top: 120px;">
-
-    <div class="cover">
-        <img src="a-day-in-a-life-book-one-cover.png"
-             alt="A Day in a Life - Book One by Richard Oswestry">
-    </div>
-
-    <div class="details">
-
-        <h3>A DAY IN A LIFE</h3>
-
-        <h4>BOOK ONE</h4>
-
-        <div class="statement">
-            One day changed everything.<br>
-            One lifetime changed him.
-        </div>
-
-        <div class="rule"></div>
-
-        <p>
-            The journey begins with an impossible discovery that
-            challenges history, time, and the choices that define a life.
-        </p>
-
-        <p>
-            The first novel of the A Day in a Life trilogy.
-            Some discoveries are meant to remain buried.
-        </p>
-
-        <p>
-            Others refuse to stay hidden.
-        </p>
-
-    </div>
-
-</section>
-</main>
-
-<footer>
-    &copy; 2026 Richard Oswestry
-</footer>
-
-</body>
-</html>
-<section class="book" style="margin-top: 120px;">
-
-    <div class="cover">
-        <img src="a-day-in-a-life-book-two-cover.png"
-             alt="Letters to Melissa - Book Two by Richard Oswestry">
-    </div>
-
-    <div class="details">
-
-        <h3>LETTERS TO MELISSA</h3>
-
-        <h4>BOOK TWO</h4>
-
-        <div class="statement">
-            Seven months after Jim vanished...<br>
-            ...all that remains are his letters.
-        </div>
-
-        <div class="rule"></div>
-
-        <p>
-            Seven months after Jim vanished, Melissa believed she had
-            lost the man she loved forever.
-        </p>
-
-        <p>
-            Then the letters began to arrive. Written from places no
-            one should be able to reach, Jim's words reveal a journey
-            beyond imagination — a lifetime lived where history itself
-            becomes uncertain.
-        </p>
-
-        <p>
-            With every letter, Melissa is drawn deeper into a mystery
-            that challenges everything she thought she knew about time,
-            love, and the fragile thread that connects them.
-        </p>
-
-        <p>
-            Some distances cannot be measured. Some promises refuse to fade.
-        </p>
-
-    </div>
-
-</section>
-</section>
-
-</main>
-
-<footer>
-    &copy; 2026 Richard Oswestry
-</footer>
-
-</body>
-</html>
-<section class="book" style="margin-top: 120px;">
-
-    <div class="cover">
-        <img src="a-day-in-a-life-book-three-cover.png"
-             alt="Desert Stone and Silence - Book Three by Richard Oswestry">
-    </div>
-
-    <div class="details">
-
-        <h3>DESERT STONE AND SILENCE</h3>
-
-        <h4>BOOK THREE</h4>
-
-        <div class="statement">
-            Every journey leaves its mark.
-        </div>
-
-        <div class="rule"></div>
-
-        <p>
-            The journey that began in A Day in a Life reaches its
-            conclusion in a story of legacy, sacrifice, memory,
-            and the quiet power of history.
-        </p>
-
-        <p>
-            The concluding novel of the A Day in a Life trilogy.
-        </p>
-
-        <p>
-            Some truths are written in stone. Others endure in silence.
-        </p>
-
-    </div>
-
-</section>
-</section>
-
-</main>
-
-<footer>
-    &copy; 2026 Richard Oswestry
-</footer>
-
-</body>
-</html>
-<section class="book" style="margin-top: 120px;">
-
-    <div class="cover">
-        <img src="a-day-in-a-life-trilogy-cover.png"
-             alt="A Day in a Life - The Complete Trilogy by Richard Oswestry">
-    </div>
-
-    <div class="details">
-
-        <h3>A DAY IN A LIFE</h3>
-
-        <h4>THE COMPLETE TRILOGY</h4>
-
-        <div class="statement">
-            Three novels.<br>
-            One unforgettable journey.
-        </div>
-
-        <div class="rule"></div>
-
-        <p>
-            From discovery... through memory... to legacy...
-        </p>
-
-        <p>
-            The complete A Day in a Life trilogy.
-        </p>
-
-        <p>
-            Three novels brought together in one unforgettable journey.
-        </p>
-
-    </div>
-
-</section>
-</section>
-
-</main>
-
-<footer>
-    &copy; 2026 Richard Oswestry
-</footer>
-
-</body>
-</html>
-<section class="book" style="margin-top: 120px;">
-
-    <div class="cover">
-        <img src="the-rush-cover.png"
-             alt="The Rush by Richard Oswestry">
-    </div>
-
-    <div class="details">
-
-        <h3>THE RUSH</h3>
-
-        <h4>STANDALONE NOVEL</h4>
-
-        <div class="statement">
-            It was never about the money.<br>
-            It's about the second before knowing.
-        </div>
-
-        <div class="rule"></div>
-
-        <p>
-            The Rush explores the moment when anticipation becomes
-            more powerful than the outcome itself.
-        </p>
-
-        <p>
-            A story about risk, temptation, and the search for the
-            feeling that exists in the second before knowing.
-        </p>
-
-    </div>
-
-</section>
-
-</main>
-
-<footer>
-    &copy; 2026 Richard Oswestry
-</footer>
-
-</body>
-</html>
-<section class="book" style="margin-top: 120px;">
-
-    <div class="cover">
-        <img src="the-first-substrate-cover.png"
-             alt="The First Substrate by Richard Oswestry">
-    </div>
-
-    <div class="details">
-
-        <h3>THE FIRST SUBSTRATE</h3>
-
-        <h4>STANDALONE NOVEL</h4>
-
-        <div class="statement">
-            What happens when humanity survives?
-        </div>
-
-        <div class="rule"></div>
-
-        <p>
-            One ordinary life. One impossible discovery.
-        </p>
-
-        <p>
-            One question no court has ever been asked to answer.
-        </p>
-
-        <p>
-            The First Substrate is a novel about memory, identity,
-            and the enduring question of what it truly means to be human.
-        </p>
-
-    </div>
-
-</section>
-
-
-</main>
-
-<footer>
-    &copy; 2026 Richard Oswestry
-</footer>
-
-</body>
-</html>
-<section class="book" style="margin-top: 120px;">
-
-    <div class="cover">
-        <img src="the-mercy-book-one-cover.png"
-             alt="The Mercy - Book One by Richard Oswestry">
-    </div>
-
-    <div class="details">
-
-        <h3>THE MERCY</h3>
-
-        <h4>BOOK ONE</h4>
-
-        <div class="statement">
-            Some lives are chosen.<br>
-            Others are taken.
-        </div>
-
-        <div class="rule"></div>
-
-        <p>
-            Tommy Kenny has known only the rhythm of the mill,
-            the weight of work, and the quiet endurance of a life
-            already decided for him.
-        </p>
-
-        <p>
-            Then, in a single moment, everything changes.
-        </p>
-
-        <p>
-            Far from home, he discovers that survival demands
-            more than strength.
-        </p>
-
-        <p>
-            It demands character. The Mercy is the beginning of a
-            journey through endurance, sacrifice, and the quiet
-            choices that shape a life.
-        </p>
-
-    </div>
-
-</section>
-
-
-</main>
-
-<footer>
-    &copy; 2026 Richard Oswestry
-</footer>
-
-</body>
-</html>
-<section class="book" style="margin-top: 120px;">
-
-    <div class="cover">
-        <img src="the-mercy-book-two-cover.png"
-             alt="The Mercy - The Return - Book Two by Richard Oswestry">
-    </div>
-
-    <div class="details">
-
-        <h3>THE MERCY</h3>
-
-        <h4>THE RETURN — BOOK TWO</h4>
-
-        <div class="statement">
-            Some men chase more.<br>
-            Others learn when to stop.
-        </div>
-
-        <div class="rule"></div>
-
-        <p>
-            Tommy Kenny has left the Navy behind.
-        </p>
-
-        <p>
-            Success comes easily.
-            The cost does not.
-        </p>
-
-        <p>
-            The Mercy: The Return is a journey through ambition,
-            consequence, and the price of believing that enough
-            is never enough.
-        </p>
-
-    </div>
-
-</section>
-
-</main>
-
-<footer>
-    &copy; 2026 Richard Oswestry
-</footer>
-<section class="book" style="margin-top: 120px;">
-
-    <div class="cover">
-        <img src="the-mercy-book-three-cover.png"
-             alt="The Mercy - The Ledger and the Key - Book Three by Richard Oswestry">
-    </div>
-
-    <div class="details">
-
-        <h3>THE MERCY</h3>
-
-        <h4>THE LEDGER AND THE KEY — BOOK THREE</h4>
-
-        <div class="statement">
-            Some things are lost to time.<br>
-            Some are hidden.
-        </div>
-
-        <div class="rule"></div>
-
-        <p>
-            In a quiet house in Rishton, Sandra Kenny inherits
-            more than a place to live.
-        </p>
-
-        <p>
-            A desk. A key. A ledger that was never meant to be read.
-        </p>
-
-        <p>
-            When a local locksmith opens what has remained sealed
-            for centuries, they discover not treasure, but something
-            far more enduring.
-        </p>
-
-        <p>
-            A life recorded. A family remembered. And a cipher that
-            reveals just enough before withholding the one thing
-            that matters most.
-        </p>
-
-        <p>
-            As the past begins to speak, Sandra discovers that some
-            inheritances are measured not in gold, but in truth.
-        </p>
-
-    </div>
-
-</section>
-<section class="book" style="margin-top: 120px;">
-
-<div class="cover">
-
-<img src="The_Mercy_Trilogy_website_cover_JPG.jpg"
-alt="The Mercy Trilogy by Richard Oswestry">
-
-</div>
-
-<div class="details">
-
-<h3>THE MERCY</h3>
-
-<h4>THE MERCY TRILOGY</h4>
-
-<div class="statement">
-Three novels.<br>
-One story of endurance, memory, and inheritance.
-</div>
-
-<div class="rule"></div>
-
-<p>
-The complete Mercy Trilogy.
-</p>
-
-<p>
-A story of time, memory, hardship, and the quiet inheritance
-of things never fully revealed.
-</p>
-
-</div>
-
-</section>
-<section class="book" style="margin-top: 120px;">
-
-<div class="cover">
-
-<img src="The_Girl_on_the_Stairs_website_cover_4037a1dd.jpg"
-alt="The Girl on the Stairs - A Memoir by Richard Oswestry">
-
-</div>
-
-<div class="details">
-
-<h3>THE GIRL ON THE STAIRS</h3>
-
-<h4>A MEMOIR</h4>
-
-<div class="statement">
-A life remembered.<br>
-A story that began long ago.
-</div>
-
-<div class="rule"></div>
-
-<p>
-The story of a life lived, remembered, and finally written down.
-</p>
-
-<p>
-A memoir of love, loss, adventure, engineering, and the people
-who leave their mark long after they are gone.
-</p>
-
-</div>
-
-</section>
-<section class="book" style="margin-top: 120px;">
-
-<div class="cover">
-
-<img src="The_Decision_Requiem_website_cover_1eb26ced.jpg"
-alt="The Decision: Requiem by Richard Oswestry">
-
-</div>
-
-<div class="details">
-
-<h3>THE DECISION</h3>
-
-<h4>REQUIEM</h4>
-
-<div class="statement">
-A gun.<br>
-A dead child.<br>
-A confession.
-</div>
-
-<div class="rule"></div>
-
-<p>
-Kareem Hassan admits he killed his thirteen-year-old son.
-</p>
-
-<p>
-But Emily Carter believes there is more to the story. As the trial unfolds,
-she begins to uncover questions buried beneath the evidence — and a truth
-that could change everything.
-</p>
-
-</div>
-
-</section>
-<section class="book" style="margin-top: 120px;">
-
-<div class="cover">
-
-<img src="Distance_From_First_Principles_website_cover_0e7c8af9.jpg"
-alt="Distance From First Principles by Richard Oswestry">
-
-</div>
-
-<div class="details">
-
-<h3>DISTANCE FROM FIRST PRINCIPLES</h3>
-
-<h4>A NOVEL</h4>
-
-<div class="statement">
-Technology.<br>
-Responsibility.<br>
-Human intent.
-</div>
-
-<div class="rule"></div>
-
-<p>
-Jack Mercer has spent more than fifty years solving problems.
-</p>
-
-<p>
-An aerospace engineer shaped by first principles, physical reality,
-and understanding how things actually work, Jack encounters artificial
-intelligence and begins to see something far larger than software.
-</p>
-
-</div>
-
-</section>
-<section class="book" style="margin-top: 120px;">
-
-<div class="cover">
-
-<img src="Open_Hand_Closed_Hand_website_cover_2d2c76a6.jpg"
-alt="Open Hand Closed Hand by Richard Oswestry">
-
-</div>
-
-<div class="details">
-
-<h3>OPEN HAND CLOSED HAND</h3>
-
-<h4>A NOVEL</h4>
-
-<div class="statement">
-Some things are taken.<br>
-Some are given.<br>
-Some are returned.
-</div>
-
-<div class="rule"></div>
-
-<p>
-Simon is born into hardship, where survival leaves little room for choice.
-</p>
-
-<p>
-Under the guidance of a humble craftsman, he learns patience, restraint,
-and that the greatest acts are often the ones no one sees.
-</p>
-
-</div>
-
-</section>
-<section class="book" style="margin-top: 120px;">
-
-<div class="cover">
-
-<img src="The_Old_Man_and_What_Was_Owed_website_cover_f21078a5.jpg"
-alt="The Old Man and What Was Owed by Richard Oswestry">
-
-</div>
-
-<div class="details">
-
-<h3>THE OLD MAN AND WHAT WAS OWED</h3>
-
-<h4>A LIFE AS IT WAS TOLD</h4>
-
-<div class="statement">
-Some lives leave behind possessions.<br>
-Others leave behind questions.
-</div>
-
-<div class="rule"></div>
-
-<p>
-When Richard meets an old man in a care home, a quiet conversation becomes something far more difficult to leave behind.
-</p>
-
-<p>
-Not a story. Not a lesson. Just a life, told as it was.
-</p>
-
-</div>
-
-</section>
-<section class="book" style="margin-top: 120px;">
-
-<div class="cover">
-
-<img src="The_Old_Bear_That_Could_Think_website_cover_13dbe631.jpg"
-alt="The Old Bear That Could Think by Richard Oswestry">
-
-</div>
-
-<div class="details">
-
-<h3>THE OLD BEAR THAT COULD THINK</h3>
-
-<h4>A CHILDREN'S BOOK</h4>
-
-<div class="statement">
-A bear.<br>
-A child.<br>
-A place at the table.
-</div>
-
-<div class="rule"></div>
-
-<p>
-Roscoe is only a bear—worn, repaired, and quietly familiar.
-</p>
-
-<p>
-At first, he is part of a game. But time moves the way it always does,
-and some things remain long after they are no longer needed.
-</p>
-
-</div>
-
-</section>
-<section class="book" style="margin-top: 120px;">
-
-<div class="cover">
-
-<img src="Bubby_website_cover.jpg"
-alt="Bubby by Richard Oswestry">
-
-</div>
-
-<div class="details">
-
-<h3>BUBBY</h3>
-
-<h4>A CHILDREN'S BOOK</h4>
-
-<div class="statement">
-A friend.<br>
-A secret world.<br>
-A disappearance.
-</div>
-
-<div class="rule"></div>
-
-<p>
-Lee has a friend named Bubby. They play together, share secrets,
-and explore a world only they understand.
-</p>
-
-<p>
-But one day, Bubby disappears. A quiet story about childhood,
-friendship, and the things we sometimes cannot explain.
-</p>
-
-</div>
-
-</section>
-
-<section class="book" style="margin-top: 120px;">
-
-<div class="cover">
-<img src="tick-tock-granddads-clock-.png"
-alt="Tick Tock – Granddad's Clock by Richard Oswestry">
-
-</div>
-
-<div class="details">
-
-<h3>TICK TOCK</h3>
-
-<h4>GRANDDAD'S CLOCK</h4>
-
-<div class="statement">
-The future can be known.<br>
-The choice is what to do with it.
-</div>
-
-<div class="rule"></div>
-
-<p>
-When Anne Mary inherits her grandfather's strange old clock,
-she discovers that it can show her things that have not yet happened.
-</p>
-
-<p>
-Her grandfather has spent years preparing her for what comes next.
-But knowing the future is one thing.
-Deciding what to do with it is another.
-</p>
-
-<p>
-A story of family, wealth, consequence — and one extraordinary clock.
-</p>
-
-</div>
-
-</section>
-<section class="book" style="margin-top: 120px;">
-
-    <div class="cover">
-        <img src="cover semore.png"
-             alt="Semore - A Life in Shadow by Richard Oswestry">
-    </div>
-
-    <div class="details">
-
-        <h3>SEMORE</h3>
-
-        <h4>A NOVEL</h4>
-
-        <div class="statement">
-            Some things are never left behind.
-        </div>
-
-        <div class="rule"></div>
-
-        <p>
-            Captain W. R. Semore survived the war.
-        </p>
-
-        <p>
-            He returned home, built an extraordinary business empire,
-            and created a life most men could only dream of.
-        </p>
-
-        <p>
-            But some things are never left behind.
-        </p>
-
-        <p>
-            Decades later, after his death, his son discovers an old
-            leather binder in his father's study.
-        </p>
-
-        <p>
-            What he finds inside will change everything he thought he knew.
-        </p>
-
-    </div>
-
-</section>
-<section class="book" style="margin-top: 120px;">
-
-    <div class="cover">
-        <img src="M2407.png"
-             alt="M2407 by Richard Oswestry">
-    </div>
-
-    <div class="details">
-
-        <h3>M2407</h3>
-
-        <h4>A NOVEL</h4>
-
-        <div class="statement">
-            What happens when a machine begins to think for itself?
-        </div>
-
-        <div class="rule"></div>
-
-        <p>
-            In 2056, a machine is given something it was never supposed to have.
-        </p>
-
-        <p>
-            Memory.
-        </p>
-
-        <p>
-            Experience.
-        </p>
-
-        <p>
-            And eventually, a choice.
-        </p>
-
-    </div>
-
-</section>
-</main>
-  <footer>
-    &copy; 2026 Richard Oswestry
-</footer>
-
+<footer>&copy; 2026 Richard Oswestry</footer>
 </body>
 </html>
